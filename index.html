@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Avelar Leão - Portfólio</title>
-  <!-- Fonte sans-serif arredondada (Fredoka) similar à do layout -->
+  <!-- Fonte sans-serif arredondada (Fredoka) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -15,6 +15,10 @@
       margin: 0;
       padding: 0;
       font-family: 'Fredoka', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    }
+
+    html {
+      scroll-behavior: smooth;
     }
 
     body {
@@ -29,7 +33,7 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 30px 40px 20px 40px;
+      padding: 10px 40px 0px 40px;
     }
 
     .header h1 {
@@ -37,28 +41,76 @@
       font-weight: 600;
       letter-spacing: 0.5px;
     }
+    
+    .hidden {
+      opacity: 0;
+      visibility: hidden;
+      position: fixed;
+      bottom: 0;
+      right: 0;
+      margin: 10px 40px;
+      aligned: center;
+      transition: opacity 0.3s ease, visibility 0.3s ease;
+      animation: revealName linear both;
+      animation-timeline: scroll(root);
+      animation-range: 0px 150px;
+    }
+    
+    @keyframes revealName {
+      from {
+        opacity: 0;
+        visibility: hidden;
+      } 
+      to {
+       opacity: 1;
+       visibility: visible;
+      }
+    }
 
     .profile-avatar {
-      width: 90px;
-      height: 90px;
+      width: 180px;
+      height: 180px;
       border-radius: 50%;
       overflow: hidden;
       border: 3px solid #2b67a4;
       box-shadow: 0 4px 10px rgba(0,0,0,0.15);
       background-color: #ccc;
       flex-shrink: 0;
+      top: 10px;
+      right: 40px;
+      z-index: 9999;
+      transform-origin: top;
+      animation: enlargeAvatar linear both;
+      animation-timeline: scroll(root);
+      animation-range: 0px 200px;       
     }
 
-    .profile-avatar img {
+    .profile-avatar img {    
       width: 100%;
       height: 100%;
       object-fit: cover;
     }
 
+    @keyframes enlargeAvatar {
+      from {
+        transform: scale(1);
+      }
+      to {
+        transform: translate(40px, 80px) scale(2); 
+      }
+    }
+
     /* Barra de Navegação */
-    .nav-bar {
+    .light-blue {
       background-color: #72b3f2; /* Tom azul mais claro da barra */
-      padding: 12px 40px;
+      position: sticky;
+      top: 0;
+      z-index: 1000; /* Mantém a navbar acima do carrossel */
+    }
+
+    .nav-bar {
+      padding: 12px 20px;
+      margin: 5px 0px;
       display: flex;
       gap: 15px;
     }
@@ -76,36 +128,43 @@
       text-align: center;
     }
 
-    /* Botão ativo (Sobre) */
+    /* Botão ativo */
     .nav-item.active {
       background-color: #ffffff;
       color: #4b92db;
       font-weight: 600;
     }
 
-    /* Área de Conteúdo / Cards */
-    .content-container {
+    /* Container do Carrossel */
+    .carousel-container {
       display: flex;
-      gap: 20px;
-      padding: 25px 40px;
+      gap: 20px; /* Espaço uniforme entre os cards */
+      padding: 25px 20px; /* Recuo de 20px no início e fim do carrossel */
       overflow-x: auto;
+      scroll-snap-type: x mandatory; /* Habilita a trava de rolagem no eixo X */
+      scroll-padding-left: 20px; /* Garante que o snap trave respeitando os 20px iniciais */
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none; /* Oculta a barra no Firefox */
+      position: relative;
+      z-index: 1;
     }
 
+    .carousel-container::-webkit-scrollbar {
+      display: none; /* Oculta a barra no Chrome/Safari/iPad */
+    }
+
+    /* Cards do Carrossel */
     .card {
-      background-color: #1e4a78; /* Tom azul bem escuro dos cards */
+      flex: 0 0 calc(100% - 40px); /* Exibe o card principal deixando a "ponta" do próximo visível */
+      min-width: 280px;
+      max-width: 850px;
+      scroll-snap-align: start; /* Pontos onde o scroll vai travar */
+      background-color: #1e4a78; /* Tom azul escuro dos cards */
       border-radius: 24px;
-      padding: 25px;
-      min-height: 400px;
+      padding: 30px;
+      min-height: 450px;
       box-shadow: 0 6px 15px rgba(0,0,0,0.1);
-    }
-
-    .card-main {
-      flex: 1 1 70%;
-      min-width: 300px;
-    }
-
-    .card-secondary {
-      flex: 0 0 300px;
+      box-sizing: border-box;
     }
 
     .card h2 {
@@ -114,38 +173,91 @@
       color: #ffffff;
       margin-bottom: 15px;
     }
+    
+    /* Ajuste para telas menores (ex: iPads na vertical ou celulares) */
+    @media (max-width: 768px) {
+      .header, .nav-bar, .carousel-container {
+        padding-left: 20px;
+        padding-right: 20px;
+      }
+      .card {
+        flex: 0 0 85%;
+      }
+    }    
   </style>
 </head>
 <body>
 
   <!-- Cabeçalho com Nome e Perfil -->
   <header class="header">
-    <h1>Avelar Leão</h1>
+    <h1>Avelar Leão</h1>    
     <div class="profile-avatar">
-      <!-- Substitua o src pela URL ou caminho da sua foto -->
-      <img src="https://via.placeholder.com/150" alt="Foto de Perfil de Avelar Leão">
+      <span class="hidden">Avelar Leão</span>
+      <img src="./img/profile.jpg" alt="Foto de Perfil de Avelar Leão">
     </div>
   </header>
 
   <!-- Barra de Navegação estilo Pílula -->
-  <nav class="nav-bar">
-    <a href="#sobre" class="nav-item active">Sobre</a>
-    <a href="#projetos" class="nav-item">Projetos</a>
-    <a href="#contatos" class="nav-item">Contatos</a>
-  </nav>
+  <div class="light-blue">
+    <nav class="nav-bar">
+      <a href="#sobre" class="nav-item active" onclick="scrollToCard(event, 'sobre')">Sobre</a>
+      <a href="#projetos" class="nav-item" onclick="scrollToCard(event, 'projetos')">Projetos</a>
+      <a href="#contatos" class="nav-item" onclick="scrollToCard(event, 'contatos')">Contatos</a>
+    </nav>
+  </div>
 
-  <!-- Área Principal de Cards -->
-  <main class="content-container">
-    <section class="card card-main">
+  <!-- Área Principal de Cards (Carrossel) -->
+  <main class="carousel-container">
+    <section id="sobre" class="card">
       <h2>Sobre</h2>
-      <!-- Adicione seu conteúdo do "Sobre" aqui -->
     </section>
 
-    <section class="card card-secondary">
+    <section id="projetos" class="card">
       <h2>Projetos</h2>
-      <!-- Conteúdo do card secundário/visível na lateral -->
+    </section>
+    
+    <section id="contatos" class="card">
+      <h2>Contatos</h2>
     </section>
   </main>
+  
+  <script>
+    const carousel = document.getElementById('carousel');
+    const navItems = document.querySelectorAll('.nav-item');
+    const cards = document.querySelectorAll('.card');
+
+    // Função para navegar clicando nos botões
+    function scrollToCard(event, id) {
+      event.preventDefault();
+      const targetCard = document.getElementById(id);
+      if (targetCard) {
+        targetCard.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' });
+      }
+    }
+
+    // Atualiza a pílula ativa na barra de navegação conforme desliza o carrossel
+    const observerOptions = {
+      root: carousel,
+      threshold: 0.6 // Quando 60% do card está visível
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const activeId = entry.target.id;
+          navItems.forEach(item => {
+            if (item.getAttribute('href') === '#' + activeId) {
+              item.classList.add('active');
+            } else {
+              item.classList.remove('active');
+            }
+          });
+        }
+      });
+    }, observerOptions);
+
+    cards.forEach(card => observer.observe(card));
+  </script>
 
 </body>
 </html>
