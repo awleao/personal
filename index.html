@@ -3,261 +3,501 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Avelar Leão - Portfólio</title>
-  <!-- Fonte sans-serif arredondada (Fredoka) -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&display=swap" rel="stylesheet">
-  
+  <title>Avelar Leão</title>
   <style>
+    /* Reset e Estilos Globais */
     * {
-      box-sizing: border-box;
       margin: 0;
       padding: 0;
-      font-family: 'Fredoka', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-    }
-
-    html {
-      scroll-behavior: smooth;
+      box-sizing: border-box;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
     }
 
     body {
-      background-color: #2b67a4; /* Azul do fundo principal */
+      background-color: #121212;
       color: #ffffff;
-      min-height: 100vh;
-      overflow-x: hidden;
+      line-height: 1.6;
     }
 
-    /* Cabeçalho superior com título e imagem de perfil */
-    .header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 10px 40px 0px 40px;
+    a {
+      color: #ffffff;
+      text-decoration: none;
     }
 
-    .header h1 {
-      font-size: 2.5rem;
-      font-weight: 600;
-      letter-spacing: 0.5px;
-    }
-    
-    .hidden {
-      opacity: 0;
-      visibility: hidden;
-      position: fixed;
-      bottom: 0;
-      right: 0;
-      margin: 10px 40px;
-      aligned: center;
-      transition: opacity 0.3s ease, visibility 0.3s ease;
-      animation: revealName linear both;
-      animation-timeline: scroll(root);
-      animation-range: 0px 150px;
-    }
-    
-    @keyframes revealName {
-      from {
-        opacity: 0;
-        visibility: hidden;
-      } 
-      to {
-       opacity: 1;
-       visibility: visible;
-      }
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 20px;
     }
 
-    .profile-avatar {
-      width: 180px;
-      height: 180px;
+    .logo {
+      width: 60px;
+      height: 60px;
+      background-color: #2a2a2a;
       border-radius: 50%;
       overflow: hidden;
-      border: 3px solid #2b67a4;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.15);
-      background-color: #ccc;
-      flex-shrink: 0;
-      top: 10px;
-      right: 40px;
-      z-index: 9999;
-      transform-origin: top;
-      animation: enlargeAvatar linear both;
-      animation-timeline: scroll(root);
-      animation-range: 0px 200px;       
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: absolute;
+      top: 50px;
+      left: 50px;
+      z-index: 5;
     }
 
-    .profile-avatar img {    
+    .logo img {
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+    } 
+
+    .nav-links {
+      display: flex;
+      list-style: none;
+      gap: 20px;
+    }
+
+    .nav-links a {
+      font-size: 0.9rem;
+      color: #ccc;
+      transition: color 0.3s;
+    }
+
+    .nav-links a:hover {
+      color: #fff;
+    }
+
+    /* Seção Hero (Banner Principal) */
+    .hero {
+      position: relative;
+      padding: 80px 0 120px 0;
+      overflow: hidden;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 500px;
+      margin: 250px 0px 0px 50px;
+    }
+
+    .hero h1 {
+      font-size: 3.5rem;
+      font-weight: 700;
+      margin-bottom: 0px;
+      letter-spacing: -1px;
+    }
+
+    .hero p {
+      font-size: 1.1rem;
+      color: #aaa;
+    }
+
+    .hero-bg-placeholder {
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 100%;
+      z-index: 1;
+      background-color: #1e1e1e;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #555;
+      font-size: 0.9rem;
+    }
+
+    .hero-bg-placeholder img {
       width: 100%;
       height: 100%;
       object-fit: cover;
     }
 
-    @keyframes enlargeAvatar {
-      from {
-        transform: scale(1);
-      }
-      to {
-        transform: translate(40px, 80px) scale(2); 
-      }
+    /* Seção Perfil da Empresa */
+    .company-profile {
+      padding: 80px 0;
     }
 
-    /* Barra de Navegação */
-    .light-blue {
-      background-color: #72b3f2; /* Tom azul mais claro da barra */
-      position: sticky;
-      top: 0;
-      z-index: 1000; /* Mantém a navbar acima do carrossel */
+    .profile-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 50px;
+      align-items: center;
     }
 
-    .nav-bar {
-      padding: 12px 20px;
-      margin: 5px 0px;
+    /* Placeholder da imagem do prédio */
+    .building-img-placeholder {
+      width: 100%;
+      height: 380px;
+      background-color: #252525;
       display: flex;
-      gap: 15px;
+      align-items: center;
+      justify-content: center;
+      color: #666;
+      border-radius: 2px;
+      overflow: hidden;
     }
 
-    .nav-item {
-      text-decoration: none;
-      padding: 10px 32px;
-      border-radius: 30px;
-      font-size: 1.1rem;
-      font-weight: 500;
-      color: #ffffff;
-      background-color: #4b92db; /* Cor dos botões inativos */
-      transition: all 0.2s ease;
+    .building-img-placeholder img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .profile-text h2 {
+      font-size: 2.2rem;
+      font-weight: 600;
+      margin-bottom: 20px;
+    }
+
+    .profile-text p {
+      color: #aaa;
+      font-size: 0.95rem;
+      margin-bottom: 30px;
+      line-height: 1.6;
+    }
+
+    .btn-saber-mais {
       display: inline-block;
+      background-color: #cccccc;
+      color: #121212;
+      padding: 10px 22px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      border: none;
+      border-radius: 2px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    .btn-saber-mais:hover {
+      background-color: #ffffff;
+    }
+
+    /* Seção Citação */
+    .testimonial {
+      padding: 100px 0;
       text-align: center;
     }
 
-    /* Botão ativo */
-    .nav-item.active {
+    .testimonial blockquote {
+      font-size: 1.8rem;
+      font-weight: 600;
+      max-width: 800px;
+      margin: 0 auto 20px auto;
+      line-height: 1.3;
+      letter-spacing: -0.5px;
+    }
+
+    /* Seção Cases  */
+    .testimonial .author {
+      color: #888;
+      font-size: 1rem;
+      font-weight: 500;
+    }
+    
+    .cases-section {
       background-color: #ffffff;
-      color: #4b92db;
+      color: #111111;
+      padding: 60px 20px;
+      font-family: sans-serif;
+    }
+
+    .cases-container {
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    .cases-container h2 {
+      font-size: 2rem;
+      font-weight: bold;
+      margin-bottom: 15px;
+    }
+
+    .cases-intro {
+      font-size: 0.95rem;
+      line-height: 1.5;
+      color: #333333;
+      margin-bottom: 40px;
+      max-width: 600px;
+    }
+
+    .cases-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      margin-bottom: 40px;
+    }
+
+    .case-card {
+      position: relative;
+      overflow: hidden;
+      border-radius: 4px;
+    }
+
+    .image-placeholder {
+      width: 100%;
+      aspect-ratio: 4 / 3;
+      background-color: #e0e0e0; /* Cinza para simular a foto antes de carregar */
+      display: block;
+    }
+
+    /* Se preferir usar tags <img> reais mais tarde, use este estilo: */
+    .case-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .case-title {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background-color: #111111;
+      color: #ffffff;
+      padding: 12px 16px;
+      font-size: 0.9rem;
       font-weight: 600;
     }
 
-    /* Container do Carrossel */
-    .carousel-container {
-      display: flex;
-      gap: 20px; /* Espaço uniforme entre os cards */
-      padding: 25px 20px; /* Recuo de 20px no início e fim do carrossel */
-      overflow-x: auto;
-      scroll-snap-type: x mandatory; /* Habilita a trava de rolagem no eixo X */
-      scroll-padding-left: 20px; /* Garante que o snap trave respeitando os 20px iniciais */
-      -webkit-overflow-scrolling: touch;
-      scrollbar-width: none; /* Oculta a barra no Firefox */
+    .cases-footer {
+      font-size: 0.9rem;
+      line-height: 1.5;
+      color: #444444;
+      max-width: 650px;
+    }
+
+    /* Container do Card */
+    .case-card {
       position: relative;
-      z-index: 1;
+      overflow: hidden;
+      border-radius: 4px;
+      cursor: pointer;
     }
 
-    .carousel-container::-webkit-scrollbar {
-      display: none; /* Oculta a barra no Chrome/Safari/iPad */
+    /* Imagem / Placeholder */
+    .image-placeholder {
+      width: 100%;
+      aspect-ratio: 4 / 3;
+      background-color: #e0e0e0;
+      display: block;
     }
 
-    /* Cards do Carrossel */
-    .card {
-      flex: 0 0 calc(100% - 40px); /* Exibe o card principal deixando a "ponta" do próximo visível */
-      min-width: 280px;
-      max-width: 850px;
-      scroll-snap-align: start; /* Pontos onde o scroll vai travar */
-      background-color: #1e4a78; /* Tom azul escuro dos cards */
-      border-radius: 24px;
-      padding: 30px;
-      min-height: 450px;
-      box-shadow: 0 6px 15px rgba(0,0,0,0.1);
-      box-sizing: border-box;
-    }
-
-    .card h2 {
-      font-size: 2rem;
-      font-weight: 500;
+    /* Painel Overlay (Animação e Transparência) */
+    .case-overlay {
+      position: absolute; 
+      inset: 0;
+      background-color: rgba(17, 17, 17, 0.88); 
       color: #ffffff;
-      margin-bottom: 15px;
+      transform: translateY(calc(100% - 45px)); 
+      transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+      
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
     }
-    
-    /* Ajuste para telas menores (ex: iPads na vertical ou celulares) */
+
+    /* Efeito ao passar o mouse: sobe preenchendo a imagem toda */
+    .case-card:hover .case-overlay {
+      transform: translateY(0);
+    }
+
+    /* Título dentro do overlay */
+    .case-title {
+      position: relative; 
+      font-size: 1rem;
+      font-weight: 700;
+      line-height: 1.3;
+    }
+
+    /* Descrição detalhada */
+    .case-description {
+      position: relative; 
+      padding: 5px;
+      font-size: 0.85rem;
+      line-height: 1.45;
+      color: #dddddd;
+      opacity: 0;
+      transition: opacity 0.25s ease 0.2s; /* Surge com um leve atraso */
+    }
+
+    /* Exibe a descrição no Hover */
+    .case-card:hover .case-description {
+      opacity: 1;
+    }
+
+
+    /* Responsividade para telas menores */
     @media (max-width: 768px) {
-      .header, .nav-bar, .carousel-container {
-        padding-left: 20px;
-        padding-right: 20px;
+      .cases-grid {
+        grid-template-columns: repeat(2, 1fr);
       }
-      .card {
-        flex: 0 0 85%;
+    }
+
+    @media (max-width: 480px) {
+      .cases-grid {
+        grid-template-columns: 1fr;
       }
-    }    
+    }
+
+    /* Responsividade Básica */
+    @media (max-width: 768px) {
+      .hero {
+        padding: 40px 0;
+      }
+      .hero-bg-placeholder {
+        position: relative;
+        width: 100%;
+        height: 250px;
+        margin-top: 30px;
+      }
+      .profile-grid {
+        grid-template-columns: 1fr;
+      }
+      .hero h1 {
+        font-size: 2.5rem;
+      }
+      .testimonial blockquote {
+        font-size: 1.3rem;
+      }
+    }
   </style>
 </head>
 <body>
 
-  <!-- Cabeçalho com Nome e Perfil -->
-  <header class="header">
-    <h1>Avelar Leão</h1>    
-    <div class="profile-avatar">
-      <span class="hidden">Avelar Leão</span>
-      <img src="./img/profile.jpg" alt="Foto de Perfil de Avelar Leão">
-    </div>
+  <header>
+        <div class="logo">
+          <img src="img/logo.jpeg" alt="Logo Avelar Leão" id="img-logo">
+        </div>
   </header>
 
-  <!-- Barra de Navegação estilo Pílula -->
-  <div class="light-blue">
-    <nav class="nav-bar">
-      <a href="#sobre" class="nav-item active" onclick="scrollToCard(event, 'sobre')">Sobre</a>
-      <a href="#projetos" class="nav-item" onclick="scrollToCard(event, 'projetos')">Projetos</a>
-      <a href="#contatos" class="nav-item" onclick="scrollToCard(event, 'contatos')">Contatos</a>
-    </nav>
-  </div>
+  <section class="hero" id="inicio">
+    <div class="container" style="position: relative;">
+      <div class="hero-content">
+        <h1>Avelar Leão</h1>
+        <p>Delivering IT, enabling business</p>
+      </div>
+    </div>
+    <div class="hero-bg-placeholder">
+      <img src="/img/background.png" alt="Background Hero - Tech workspace" id="img-hero">
+    </div>
+  </section>
 
-  <!-- Área Principal de Cards (Carrossel) -->
-  <main class="carousel-container">
-    <section id="sobre" class="card">
-      <h2>Sobre</h2>
-    </section>
+  <!-- Seção Perfil da Empresa -->
+  <section class="company-profile" id="servicos">
+    <div class="container">
+      <div class="profile-grid">
+        <div class="building-img-placeholder">
+          <img src="/img/tpm.jpeg" alt="Analisando KPIs em um quadro digital" id="img-quadro">
+        </div>
+        <div class="profile-text">
+          <h2>Technical Product Management</h2>
+          <p>
+            Half a decade of experience driving 0-to-1 product discovery, system architecture, and commercial delivery across Energy, Retail, FinTech, and Market Intelligence sectors. 
+Translating complex regulatory, legal, and multi-cloud architectural demands into actionable roadmaps.
+Adept at bridging executive C-level vision with hands-on engineering execution unlocking scalable revenue streams. 
+          </p>
+        </div>
+        <div class="profile-text">
+          <h2>Delivery Leader</h2>
+          <p>
+            15+ years of experience leading large-scale enterprise transformations, multi-vendor engineering orgs, and complex cut-over strategies. Proven history of managing up to 250 FTEs across 14 distinct verticals, overseeing high-stakes budgets, and orchestrating cross-functional teams (Data, Infra, Security, and Core Dev).
+          </p>
+        </div>
+        <div class="building-img-placeholder">
+          <img src="/img/delivery.jpeg" alt="Lideres conversando no mezanino" id="img-mezanino">
+        </div>                
+      </div>
+    </div>
+  </section>
 
-    <section id="projetos" class="card">
-      <h2>Projetos</h2>
-    </section>
-    
-    <section id="contatos" class="card">
-      <h2>Contatos</h2>
-    </section>
-  </main>
+  <!-- Seção Depoimento / Citação -->
+  <section class="testimonial">
+    <div class="container">
+      <blockquote>
+        "A contabilidade é a nossa especialidade.<br>
+        A gente cuida disso para você se<br>
+        concentrar no que faz de melhor."
+      </blockquote>
+      <div class="author">Amanda Marques, CEO</div>
+    </div>
+  </section>
   
-  <script>
-    const carousel = document.getElementById('carousel');
-    const navItems = document.querySelectorAll('.nav-item');
-    const cards = document.querySelectorAll('.card');
+<section class="cases-section">
+  <div class="cases-container">
+    <h2>Cases</h2>
+    <p class="cases-intro">
+      Desde o início, temos oferecido um serviço confiável aos nossos clientes. 
+      Tivemos a honra de ser a empresa escolhida pelas seguintes corporações:
+    </p>
 
-    // Função para navegar clicando nos botões
-    function scrollToCard(event, id) {
-      event.preventDefault();
-      const targetCard = document.getElementById(id);
-      if (targetCard) {
-        targetCard.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' });
-      }
-    }
+    <div class="cases-grid">
+      <div class="case-card">
+        <div class="image-placeholder"></div>
+        <div class="case-overlay">
+          <div class="case-title">SAP Integrations at GEQ</div>        
+          <div class="case-description">
+            Managed integration backlog for satellite systems across 34 vendors, 
+            coordinating 3 successful go-lives.
+          </div>
+        </div>
+      </div>
 
-    // Atualiza a pílula ativa na barra de navegação conforme desliza o carrossel
-    const observerOptions = {
-      root: carousel,
-      threshold: 0.6 // Quando 60% do card está visível
-    };
+      <div class="case-card">
+        <div class="image-placeholder"></div>
+        <div class="case-overlay">
+          <div class="case-title">Experimentation framework at Nubank</div>
+          <div class="case-description">
+          </div>
+        </div>        
+      </div>
 
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          const activeId = entry.target.id;
-          navItems.forEach(item => {
-            if (item.getAttribute('href') === '#' + activeId) {
-              item.classList.add('active');
-            } else {
-              item.classList.remove('active');
-            }
-          });
-        }
-      });
-    }, observerOptions);
+      <div class="case-card">
+        <div class="image-placeholder"></div>
+        <div class="case-overlay">
+          <div class="case-title">Conversational data plataform</div>
+          <div class="case-description">
+          </div>
+        </div>         
+      </div>
 
-    cards.forEach(card => observer.observe(card));
-  </script>
+      <div class="case-card">
+        <div class="image-placeholder"></div>
+        <div class="case-overlay">
+          <div class="case-title">Marketing expansion</div>
+          <div class="case-description">
+          </div>
+        </div>         
+      </div>
+
+      <div class="case-card">
+        <div class="image-placeholder"></div>
+        <div class="case-overlay">
+          <div class="case-title">Integrate Online and Offline stores</div>
+          <div class="case-description">
+          </div>
+        </div>         
+      </div>
+
+      <div class="case-card">
+        <div class="image-placeholder"></div>
+        <div class="case-overlay">
+          <div class="case-title">MVP lunch</div>
+          <div class="case-description">
+          </div>
+        </div>         
+      </div>
+    </div>
+
+    <p class="cases-footer">
+      Valorizamos os históricos, experiências e contribuições únicas que cada cliente 
+      traz para nossa comunidade e incentivamos e celebramos a diversidade.
+    </p>
+  </div>
+</section>
+  
 
 </body>
 </html>
